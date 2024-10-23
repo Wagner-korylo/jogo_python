@@ -16,7 +16,9 @@ running = True #(a variavel running é usado como condição para determinar se 
 #redefinir os caracteres 'X' e '0'
 personagem_x = fonte_quadrinhos.render ('X', True, 'red')#cria uma superficie de imagem apartir do texto que vc dseseja exibir da tela. X e 0
 personagem_y = fonte_quadrinhos.render ('0', True, 'red')
-cor_fundo = 1# essa vareavel é usada para um controle de cor de fundo da tela de um jogo, permitindo alternancia entre diferentes nucleos
+apresenta_personagem = 0  # essa vareavel é usada para um controle de cor de fundo da tela de um jogo, permitindo alternancia entre diferentes nucleos
+x = 0
+y = 0
 
 
 
@@ -29,29 +31,49 @@ while running:#usado para repetir um bloco do codigo quando uma condição é ve
                                  #loopng principal e fechando o jogo principal
             running = False
         if event.type == pygame.MOUSEBUTTONDOWN:# é uma seleção condicional que detecta, quando um botão do mouse for precionado.
-            print ('Clicou')#é um comando que exibe uma mensagem clicou no consoilo ou na saida padrao do programa.
-            cor_fundo += 1# 
-        if cor_fundo > 3: # é uma condiçaõ que verifica se o valar da veriavel cor fundo é >3           
-            cor_fundo = 1#
+            print('Clicou')#é um comando que exibe uma mensagem clicou no consoilo ou na saida padrao do programa.
+            click_pos = pygame.mouse.get_pos()
+            print('eixo x:' , click_pos[0])
+            print('eixo y:' , click_pos [1])
+            x = click_pos[0]
+            y = click_pos[1]
+            apresenta_personagem = apresenta_personagem + 1
+            if(apresenta_personagem >= 9): # é uma condiçaõ que verifica se o valar da veriavel cor fundo é >3 
+                screen.fill('black')         
+                apresenta_personagem = 0
+               
 
-            #desenha tabuleiro
+            #desenha tabuleiro 
     pygame.draw.line(screen, 'white',(200, 0),(200, 600),10)
     pygame.draw.line(screen, 'white',(400, 0),(400, 600),10)
     pygame.draw.line(screen, 'white',(0, 200),(600, 200),10)
     pygame.draw.line(screen, 'white',(0, 400),(600, 400),10)
            
-       
-    if cor_fundo == 1:# condicional que execulta um codigo de bloco se a condição especificada for verdadeira neste caso ela verifica se cor fundo é ugual a 1.2
-        # screen.fill('blue')# preencha toda a estrutura do jogo com a cor específica azul
-        screen.blit(personagem_x, (60,30))#para desenhar na superficie uma imagem ou um texto na tela com o x
-    elif cor_fundo == 2:#verifique se a cor de fundo será a 2, para deternimar que açaõ a ser tomada, 
-        screen.blit(personagem_y, (60,30))# preenche com o azul
-        screen.blit(personagem_x, (260,30))#para desenhar na superficie uma imagem ou um texto na tela com o x
-    elif cor_fundo == 2:#verifique se a cor de fundo será a 2, para deternimar que açaõ a ser tomada, 
-        screen.blit(personagem_y, (460,30))# preenche com o azul
-         
-        
-         #else:
+     #primeira linha    
+     #            x   y
+    if    x > 0 and x < 200 and y < 200:
+         screen.blit(personagem_x,(60,30))#  primeiro           preenche com o azul
+    elif x >= 200 and x < 400 and y < 200:
+        screen.blit(personagem_y,(260,30))# segundo           para desenhar na superficie uma imagem ou um texto na tela com o x
+    elif x >= 400 and y <= 200:
+        screen.blit(personagem_y,(460,30))# terceiro          preenche com o azul
+
+         #segunda  linha            x  y
+    elif x < 200 and y > 200 and y <= 400:
+        screen.blit(personagem_x,(60,230))# quarto             preenche com o azul
+    elif x >= 200 and x< 400 and y> 200 and y >= 400:
+        screen.blit(personagem_y, (260,230))#quinto             para desenhar na superficie uma imagem ou um texto na tela com o x
+    elif x >= 400 and y >= 200 and Y < 400:
+        screen.blit(personagem_y, (460,230))# sexto             preenche com o azul
+
+         #terceiralinha             x   y
+    elif x < 200 and y >= 400:
+        screen.blit(personagem_x, (60,430))# setimo             preenche com o azul
+    elif x >= 200 and x < 400 and Y >= 400:
+        screen.blit(personagem_y, (260,430))# oitavo             para desenhar na superficie uma imagem ou um texto na tela com o x
+    elif x >= 400 and y >= 400:
+        screen.blit(personagem_y, (460,430))# nono               preenche com o azul
+
       
      # flip() the display to put your work on screen
     pygame.display.flip() # a area atualizar a tela do jogo com todas as alterações que foram feitas desde a ultima atualização
