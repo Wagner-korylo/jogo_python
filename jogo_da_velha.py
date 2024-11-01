@@ -23,6 +23,19 @@ rodadas = 0  # essa vareavel é usada para um controle de cor de fundo da tela d
 tabuleiro_desenhado = False
 coordenada_x = 0
 coordenada_y = 0
+
+q1 = ''
+q2= ''
+q3 = ''
+q4 = ''
+q5 = ''
+q6 = ''
+q7 = ''
+q8 = ''
+q9 = ''
+
+
+
 def desenha_tabuleiro(espessura, cor):
 
     
@@ -35,31 +48,43 @@ def desenha_tabuleiro(espessura, cor):
     pygame.draw.line(screen, 'blue',(0, 400),(600, 400), espessura)
 
 def faz_jogada():
-    if  coordenada_x > 0 and coordenada_x < 200 and coordenada_y < 200:
+    
+    global q1, q2, q3, q4, q5, q6, q7, q8, q9
+    status = True
+    if q1 == '' and coordenada_x > 0 and coordenada_x < 200 and coordenada_y < 200:
         screen.blit(jogador_atual,(60,30))#  primeiro           preenche com o azul
-    elif  coordenada_x >= 200 and coordenada_x < 400 and coordenada_y < 200:
+        q1 = jogador_atual
+    elif q2 == '' and coordenada_x >= 200 and coordenada_x < 400 and coordenada_y < 200:
         screen.blit(jogador_atual,(260,30))# segundo           para desenhar na superficie uma imagem ou um texto na tela com o x
-    elif  coordenada_x >= 400 and coordenada_y <= 200:
+        q2 = jogador_atual
+    elif q3 == '' and  coordenada_x >= 400 and coordenada_y <= 200:
         screen.blit(jogador_atual,(460,30))# terceiro          preenche com o azul
+        q3 = jogador_atual
 
          #segunda  linha            x  y
-    elif coordenada_x < 200 and coordenada_y >= 200 and coordenada_y < 400:
+    elif q4 == '' and coordenada_x < 200 and coordenada_y >= 200 and coordenada_y < 400:
         screen.blit(jogador_atual,(60,230))# quarto             preenche com o azul
-    elif coordenada_x >= 200 and coordenada_x < 400 and coordenada_y > 200 and coordenada_y < 400:
+        q4 = jogador_atual
+    elif q5 == '' and coordenada_x >= 200 and coordenada_x < 400 and coordenada_y > 200 and coordenada_y < 400:
         screen.blit(jogador_atual, (260,230))#quinto             para desenhar na superficie uma imagem ou um texto na tela com o x
-    elif coordenada_x >= 400 and coordenada_y >= 200 and coordenada_y< 400:
+        q5 = jogador_atual
+    elif q6 == '' and coordenada_x >= 400 and coordenada_y >= 200 and coordenada_y< 400:
         screen.blit(jogador_atual, (460,230))# sexto             preenche com o azul
+        q6 = jogador_atual
 
          #terceiralinha             x   y
-    elif coordenada_x < 200 and coordenada_y >= 400:
+    elif q7 == '' and coordenada_x < 200 and coordenada_y >= 400:
         screen.blit(jogador_atual, (60,430))# setimo             preenche com o azul
-    elif coordenada_x >= 200 and coordenada_x < 400 and coordenada_y >= 400:
+        q7 = jogador_atual
+    elif q8 == '' and coordenada_x >= 200 and coordenada_x < 400 and coordenada_y >= 400:
         screen.blit(jogador_atual, (260,430))# oitavo             para desenhar na superficie uma imagem ou um texto na tela com o x
-    elif coordenada_x >= 400 and coordenada_y >= 400:
-        screen.blit(jogador_atual, (460,430))# nono   
-
-    
-
+        q8 = jogador_atual
+    elif q9 == '' and  coordenada_x >= 400 and coordenada_y >= 400:
+        screen.blit(jogador_atual, (460,430))# nono 
+        q9 = jogador_atual  
+    else:
+        status = False
+    return status
 
            
 while running:#usado para repetir um bloco do codigo quando uma condição é verdadeira
@@ -77,6 +102,8 @@ while running:#usado para repetir um bloco do codigo quando uma condição é ve
             print('eixo y:' , click_pos [1])
             coordenada_x = click_pos[0]
             coordenada_y = click_pos[1]
+
+            
             rodadas = rodadas + 1
 
             if rodadas >= 10:
@@ -85,9 +112,9 @@ while running:#usado para repetir um bloco do codigo quando uma condição é ve
                 coordenada_x = 0
                 coordenada_y = 0
                 tabuleiro_desenhado = False
+                
+            if (faz_jogada()):
             
-
-
             if rodadas != 1:
 
                 if jogador_atual == personagem_x:
@@ -97,11 +124,21 @@ while running:#usado para repetir um bloco do codigo quando uma condição é ve
             else:
                 jogador_atual = personagem_x  
 
-            faz_jogada()
-
-    
+           
+        print (q1, q9)
     if tabuleiro_desenhado == False:
        desenha_tabuleiro(30, 'blue')
+       q1 = ''
+       q2=  ''
+       q3 = ''
+       q4 = ''
+       q5 = ''
+       q6 = ''
+       q7 = ''
+       q8 = ''
+       q9 = ''
+
+
        tabuleiro_desenhado = True
  
            
