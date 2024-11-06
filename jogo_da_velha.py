@@ -1,31 +1,35 @@
-#Example file showing a basic pygame "game loop"
-import pygame #importa a bibliotecagit 
+import pygame  # importa a biblioteca
 
 # pygame setup
-pygame.init() #inicialização do pygame
-pygame.font.init() #inicialização do pacote de fontes no pygame
+pygame.init()  # inicialização do pygame
+pygame.font.init()  # inicialização do pacote de fontes no pygame
 
-screen = pygame.display.set_mode((600, 600))#Essa função configura a janela onde o jogo será exibido
-pygame.display.set_caption('jogo da Velha Wagner')# Essa função altera o titulo da janela que sera exibido no aplicativo
-clock = pygame.time.Clock() #Essa função é usado para gerenciar a velocidade da atualização da tela
- 
-fonte_quadrinhos = pygame.font.SysFont ( 'Comic Sans Ms',100) #importar fonte
-running = True #(a variavel running é usado como condição para determinar se o lup principal dp jogo deve continuar girando ou nao.quando
-               #running e true o loop continua; quando o ruinng se torna falso
+screen = pygame.display.set_mode((600, 600)) #Essa função configura a janela onde o jogo será exibido.
+pygame.display.set_caption('jogo da Velha ') #Esta função altera o título da janela que é exibida na barra de título do aplicativo.
+clock = pygame.time.Clock() # Esse objeto é usado para gerenciar o tempo no seu jogo, permitindo que você controle a velocidade de atualização da tela.
 
-#redefinir os caracteres 'X' e '0'
-personagem_x = fonte_quadrinhos.render ('X', True, 'orange')#cria uma superficie de imagem apartir do texto que vc dseseja exibir da tela. X e 0
-personagem_0 = fonte_quadrinhos.render ('0', True, 'red')
 
-jogador_atual = personagem_x #inicializa o jogo vom o x
 
-rodadas = 0  # essa vareavel é usada para um controle de cor de fundo da tela de um jogo, permitindo alternancia entre diferentes nucleos
+
+fonte_quadrinhos = pygame.font.SysFont('Comic Sans Ms', 100)  #função é usada para criar uma fonte a partir de fontes disponíveis no sistema operacional. 
+#Ela permite que você escolha uma fonte já instalada em seu sistema.
+
+running = True  #A variável `running` é usada como uma condição para determinar se o loop principal do jogo deve continuar girando ou não.
+#Quando `running` é `True`, o loop continua; quando `running` se torna `False`
+
+# cria uma superfície de imagem a partir do texto que você deseja exibir na tela."X" e "0"
+personagem_x = fonte_quadrinhos.render('X', True, 'red')
+personagem_o = fonte_quadrinhos.render('0', True, 'red')
+
+jogador_atual = personagem_x #inicializa o jogo com o x.
+
+rodadas = 0 
 tabuleiro_desenhado = False
 coordenada_x = 0
 coordenada_y = 0
 
 q1 = ''
-q2= ''
+q2 = ''
 q3 = ''
 q4 = ''
 q5 = ''
@@ -34,124 +38,151 @@ q7 = ''
 q8 = ''
 q9 = ''
 
+def desenha_tabuleiro(espessura,cor):
 
-
-def desenha_tabuleiro(espessura, cor):
-
-    
-      #desenha tabuleiro 
-            #                          origem    destino
-            #                          (X ,Y)    (X < Y)
-    pygame.draw.line(screen, 'blue',(200, 0),(200, 600), espessura)
-    pygame.draw.line(screen, 'blue',(400, 0),(400, 600), espessura)
-    pygame.draw.line(screen, 'blue',(0, 200),(600, 200), espessura)
-    pygame.draw.line(screen, 'blue',(0, 400),(600, 400), espessura)
+ 
+     # desenha tabuleiro             (x)  (y)  (x)  (y)
+    pygame.draw.line(screen, 'yellow',(200, 0),(200, 600),espessura)
+    pygame.draw.line(screen, 'yellow',(400, 0),(400, 600),espessura)
+    pygame.draw.line(screen, 'yellow',(0, 200),(600, 200),espessura)
+    pygame.draw.line(screen, 'yellow',(0, 400),(600, 400),espessura)
 
 def faz_jogada():
-    
     global q1, q2, q3, q4, q5, q6, q7, q8, q9
     status = True
-    if q1 == '' and coordenada_x > 0 and coordenada_x < 200 and coordenada_y < 200:
-        screen.blit(jogador_atual,(60,30))#  primeiro           preenche com o azul
-        q1 = jogador_atual
-    elif q2 == '' and coordenada_x >= 200 and coordenada_x < 400 and coordenada_y < 200:
-        screen.blit(jogador_atual,(260,30))# segundo           para desenhar na superficie uma imagem ou um texto na tela com o x
+      
+    if q1 ==''and coordenada_x > 0 and coordenada_x < 200 and coordenada_y < 200:  # (x),(y)
+       screen.blit(jogador_atual,(60,30)) #primario
+       q1 = jogador_atual
+    elif q2 ==''and coordenada_x >= 200 and coordenada_x < 400 and coordenada_y < 200:   
+        screen.blit(jogador_atual,(260,30)) #segundario
         q2 = jogador_atual
-    elif q3 == '' and  coordenada_x >= 400 and coordenada_y <= 200:
-        screen.blit(jogador_atual,(460,30))# terceiro          preenche com o azul
+    elif q3 ==''and coordenada_x >= 400 and coordenada_y < 200:   
+        screen.blit(jogador_atual,(460,30)) #terceiro
         q3 = jogador_atual
 
-         #segunda  linha            x  y
-    elif q4 == '' and coordenada_x < 200 and coordenada_y >= 200 and coordenada_y < 400:
-        screen.blit(jogador_atual,(60,230))# quarto             preenche com o azul
+    #segundario linha
+    #
+    elif q4 ==''and coordenada_x < 200 and coordenada_y >= 200 and coordenada_y <400:
+        screen.blit(jogador_atual,(60,230)) #quarto
         q4 = jogador_atual
-    elif q5 == '' and coordenada_x >= 200 and coordenada_x < 400 and coordenada_y > 200 and coordenada_y < 400:
-        screen.blit(jogador_atual, (260,230))#quinto             para desenhar na superficie uma imagem ou um texto na tela com o x
+    elif q5 ==''and coordenada_x >= 200 and coordenada_x < 400 and coordenada_y >= 200 and coordenada_y < 400:   
+        screen.blit(jogador_atual,(260,230)) #quinto
         q5 = jogador_atual
-    elif q6 == '' and coordenada_x >= 400 and coordenada_y >= 200 and coordenada_y< 400:
-        screen.blit(jogador_atual, (460,230))# sexto             preenche com o azul
+    elif q6 ==''and coordenada_x >= 400 and coordenada_y >= 200 and coordenada_y < 400:     
+        screen.blit(jogador_atual,(460,230)) #sexto
         q6 = jogador_atual
 
-         #terceiralinha             x   y
-    elif q7 == '' and coordenada_x < 200 and coordenada_y >= 400:
-        screen.blit(jogador_atual, (60,430))# setimo             preenche com o azul
-        q7 = jogador_atual
-    elif q8 == '' and coordenada_x >= 200 and coordenada_x < 400 and coordenada_y >= 400:
-        screen.blit(jogador_atual, (260,430))# oitavo             para desenhar na superficie uma imagem ou um texto na tela com o x
-        q8 = jogador_atual
-    elif q9 == '' and  coordenada_x >= 400 and coordenada_y >= 400:
-        screen.blit(jogador_atual, (460,430))# nono 
-        q9 = jogador_atual  
+     #terceiro linha
+    #
+    elif q7 ==''and coordenada_x < 200 and coordenada_y >= 400:
+        screen.blit(jogador_atual,(60,430)) #setimo
+        q7 == jogador_atual
+    elif q8 ==''and coordenada_x >= 200 and coordenada_x < 400 and coordenada_y >= 400: 
+        screen.blit(jogador_atual,(260,430)) #oitavo
+        q8 == jogador_atual
+    elif q9 ==''and coordenada_x >= 400 and coordenada_y >= 400:       
+        screen.blit(jogador_atual,(460,430)) #nono
+        q9 = jogador_atual
     else:
+        status = False 
+    return status 
+    
+def check_vencedor():
         status = False
-    return status
+   
+        #linhas
+        if q1 == q2 == q3 != '':
+            pygame.draw.line(screen, 'white',(50, 100),(550, 100), 5)
+            status = True
+        elif q4 ==q5 == q6 != '': 
+             pygame.draw.line(screen, 'white',(50,300),(550, 300), 10) 
+             status = True 
+        elif q7 == q8 == q9 != '':
+             pygame.draw.line(screen, 'white',(50, 500),(550, 500), 10)
+             status = True
 
-           
-while running:#usado para repetir um bloco do codigo quando uma condição é verdadeira
-    # poll for events
-    # pygame.QUIT event means the user clicked X to close your window
-    for event in pygame.event.get():#essa função retorna uma lista de  todos os eventos que ocorree desde a ultima vez que voce chamou essa funçaõ
-                                 #isso inclui envento com o clic de mouse teclas precionadas movimento de mouse e comando de fechamentos de janelas 
-        if event.type == pygame.QUIT:# detecta quando um usuário tenta fexsr uma janela do jogo permite que vc respoonde a esse evento enserrando o 
-                                 #loopng principal e fechando o jogo principal
+
+            #colulas
+        elif q1 ==q4 == q7 != '':
+             pygame.draw.line(screen, 'white',(200, 0),(200, 600), 5)
+             status = True
+        elif q2 == q5 == q8 != '':
+             pygame.draw.line(screen, 'white',(200, 0),(200, 600), 5)
+             status = True
+        elif q3 == q6 == q9 != '':
+             pygame.draw.line(screen, 'white',(200, 0),(200, 600), 5)
+             status = True
+
+
+            #diagonais   
+        elif q1 == q5 == q9 != '':
+             pygame.draw.line(screen, 'white',(200, 0),(200, 600), 5)
+             status = True
+        elif q3 == q5 == q7 != '':
+             pygame.draw.line(screen, 'white',(200, 0),(200, 600), 5)
+             status = True
+        return status
+
+while running: # codigo principal. 
+
+    for event in pygame.event.get():# Esta função retorna uma lista de todos os eventos que ocorreram desde a última vez que você chamou essa função. 
+        #Isso inclui eventos como cliques de mouse, teclas pressionadas, movimentos de mouse e comandos de fechamento de janela.
+    
+
+        if event.type == pygame.QUIT: #Detectar quando o usuário tenta fechar uma janela do jogo.
+            #Permite que você responda a esse evento encerrando o loop principal e fechando o jogo de forma adequada.
             running = False
-        if event.type == pygame.MOUSEBUTTONDOWN:# é uma seleção condicional que detecta, quando um botão do mouse for precionado.
-            print('Clicou')#é um comando que exibe uma mensagem clicou no consoilo ou na saida padrao do programa.
-            click_pos = pygame.mouse.get_pos() # a posição do mouse quando ouver evento do cli
-            print('eixo x:' , click_pos[0])
-            print('eixo y:' , click_pos [1])
+        if event.type == pygame.MOUSEBUTTONDOWN: # pressionar uma tecla, mover o mouse, ou um clique do mouse)
+            print('Clicou')#é um comando que exibe a mensagem "Clicou" no console ou na saída padrão do programa.
+            click_pos =pygame.mouse.get_pos()#a posiçao do mouse quando ouver evento de click
+            print("eixo x:",click_pos[0])
+            print("eixo y:",click_pos[1])
             coordenada_x = click_pos[0]
             coordenada_y = click_pos[1]
 
-            
-            rodadas = rodadas + 1
-
-            if rodadas >= 10:
+            if(rodadas >= 9) : 
                 screen.fill('black')
                 rodadas = 0
                 coordenada_x = 0
                 coordenada_y = 0
                 tabuleiro_desenhado = False
-                
-            if (faz_jogada()):
+
+                break
             
-            if rodadas != 1:
-
+            if(faz_jogada()):
+                rodadas = rodadas + 1   
                 if jogador_atual == personagem_x:
-                   jogador_atual = personagem_0 
+                    jogador_atual = personagem_o 
                 else:
-                   jogador_atual = personagem_x   
-            else:
-                jogador_atual = personagem_x  
-
-           
-        print (q1, q9)
-    if tabuleiro_desenhado == False:
-       desenha_tabuleiro(30, 'blue')
-       q1 = ''
-       q2=  ''
-       q3 = ''
-       q4 = ''
-       q5 = ''
-       q6 = ''
-       q7 = ''
-       q8 = ''
-       q9 = ''
-
-
-       tabuleiro_desenhado = True
- 
-           
-          
-     #primeira linha    
-     #            x   y
+                    jogador_atual =personagem_x 
+            if (check_vencedor ()): 
+                rodadas = 9
+        
     
+    if tabuleiro_desenhado == False:   
+        desenha_tabuleiro(10,'yellow')
+        q1 = ''
+        q2 = ''
+        q3 = ''
+        q4 = ''
+        q5 = ''
+        q6 = ''
+        q7 = ''
+        q8 = ''
+        q9 = ''
+        tabuleiro_desenhado = True
 
-   
-     # flip() the display to put your work on screen
-    pygame.display.flip() # a area atualizar a tela do jogo com todas as alterações que foram feitas desde a ultima atualização
-
-    clock.tick(60)  # limits FPS to 60, é um objeto utilizado para controlar opm tempo e a taxa atualização do jogo
     
+     
+    #primario linha
+     #  
+    
+      
 
-pygame.quit()# enserrar a biblioteca e limpar todos os recursos que foram ultilizados diran te a execulção do jogo.
+    # ara atualizar a tela do jogo com todas as alterações que foram feitas desde a última atualização.
+    pygame.display.flip()
+
+    clock.tick(60)  #  é um objeto utilizado para controlar o tempo e a taxa atualização do jogo.
+
+pygame.quit() # encerrar a biblioteca e limpar todos os recursos que foram utilizados durante a execução do jogo. 
