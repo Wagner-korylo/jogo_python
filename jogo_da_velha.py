@@ -77,10 +77,10 @@ def faz_jogada():
     #
     elif q7 ==''and coordenada_x < 200 and coordenada_y >= 400:
         screen.blit(jogador_atual,(60,430)) #setimo
-        q7 == jogador_atual
+        q7 = jogador_atual
     elif q8 ==''and coordenada_x >= 200 and coordenada_x < 400 and coordenada_y >= 400: 
         screen.blit(jogador_atual,(260,430)) #oitavo
-        q8 == jogador_atual
+        q8 = jogador_atual
     elif q9 ==''and coordenada_x >= 400 and coordenada_y >= 400:       
         screen.blit(jogador_atual,(460,430)) #nono
         q9 = jogador_atual
@@ -90,10 +90,11 @@ def faz_jogada():
     
 def check_vencedor():
         status = False
-   
+
+        #                                      
         #linhas
         if q1 == q2 == q3 != '':
-            pygame.draw.line(screen, 'white',(50, 100),(550, 100), 5)
+            pygame.draw.line(screen, 'white',(50, 100),(550, 100), 10)
             status = True
         elif q4 ==q5 == q6 != '': 
              pygame.draw.line(screen, 'white',(50,300),(550, 300), 10) 
@@ -102,25 +103,25 @@ def check_vencedor():
              pygame.draw.line(screen, 'white',(50, 500),(550, 500), 10)
              status = True
 
-
+             #                              ponto A      ponto B
             #colulas
         elif q1 ==q4 == q7 != '':
-             pygame.draw.line(screen, 'white',(200, 0),(200, 600), 5)
+             pygame.draw.line(screen, 'white',(100,50),(100, 550), 10)
              status = True
         elif q2 == q5 == q8 != '':
-             pygame.draw.line(screen, 'white',(200, 0),(200, 600), 5)
+             pygame.draw.line(screen, 'white',(300,50),(300, 550), 10) 
              status = True
         elif q3 == q6 == q9 != '':
-             pygame.draw.line(screen, 'white',(200, 0),(200, 600), 5)
+             pygame.draw.line(screen, 'white',(500, 50),(500, 550), 10)
              status = True
 
 
             #diagonais   
         elif q1 == q5 == q9 != '':
-             pygame.draw.line(screen, 'white',(200, 0),(200, 600), 5)
+             pygame.draw.line(screen, 'white',(50, 50),(550, 550), 5)
              status = True
         elif q3 == q5 == q7 != '':
-             pygame.draw.line(screen, 'white',(200, 0),(200, 600), 5)
+             pygame.draw.line(screen, 'white',(550, 50),(50, 550), 5)
              status = True
         return status
 
